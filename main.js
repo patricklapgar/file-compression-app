@@ -5,8 +5,9 @@ const imagemin = require('imagemin')
 const imageminMozjpeg = require('imagemin-mozjpeg')
 const imageminPngquant = require('imagemin-pngquant')
 const slash = require('slash')
+const log = require('electron-log')
 
-process.env.NODE_ENV = 'development' // Environment is set to development
+process.env.NODE_ENV = 'production' // Environment is set to development
 
 const isDevelopment = process.env.NODE_ENV !== 'production' ? true : false;
 const isMac = process.platform === 'darwin' ? true : false;
@@ -114,10 +115,14 @@ async function shrinkImage({ imgPath, imageQuality, dest }) {
             ]
         })
 
-        console.log(files)
+        log.info(files)
         shell.openPath(dest)
+
+        // Send events from window to the IPC renderer
+        mainWindow.webContents.send('image:done')
     } catch (err) {
         console.log(err)
+        log.error(err)
     }
 }
 

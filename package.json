@@ -14,6 +14,7 @@
     "nodemon": "^2.0.16"
   },
   "dependencies": {
+    "electron-log": "^4.4.8",
     "imagemin": "^7.0.1",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-pngquant": "^8.0.0",
